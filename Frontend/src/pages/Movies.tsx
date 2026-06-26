@@ -1,39 +1,59 @@
-import { useState, useEffect } from 'react';
-import { getPopularMovies } from '../services/apiRequests';
-import LoadingPlaceholder from '../components/LoadingPlaceholder';
-import CinemaCard from '../components/CinemaCard';
-import { type Media } from '../types';
+import { useState, useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { getPopularMovies } from "../services/apiRequests";
+import LoadingPlaceholder from "../components/LoadingPlaceholder";
+import CinemaCard from "../components/CinemaCard";
+import '../css/Globe.css'
 
 const Movies = () => {
-  const [popular, setPopularMovies] = useState<Media[]>([]);
+  const {
+    data: movies,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["movie", "popular"],
+    queryFn: getPopularMovies,
+  });
 
-  useEffect(() => {
-    const fetchPopularMovies = async () => {
-      try {
-        const data = await getPopularMovies();
-        setPopularMovies(data);
-      } catch (error) {
-        console.error('Error fetching movies:', error);
-      }
-    };
-
-    fetchPopularMovies();
-  }, []);
+  if (isLoading)
+    return (
+      <div className="loading_wrapper">
+        <p>Loading movies...</p>
+      </div>
+    );
+  if (error || !movies)
+    return (
+      <div className="error_wrapper">
+        <p>Error retrieving movies</p>
+      </div>
+    );
 
   return (
-    <div className="home-page">
-      <h1>🎬 Currently Popular</h1>
-      {popular.length === 0 ? (
-        <LoadingPlaceholder />
-      ) : (
-        <a href=''>
-          <div className="card-container">
-            {popular.map((item) => (
-              <CinemaCard key={item.id} {...item} />
-            ))}
+    <div className="column_wrapper">
+      <div className="content_wrapper">
+        <div className="column_header">
+          <h2>Currently Popular</h2>
+        </div>
+        <div className="row_wrapper">
+          <div className="filter_wrapper">
+            <div className="filter_pannel">
+              <h3>Filters</h3>
+            </div>
+            <div className="filter_pannel"></div>
           </div>
-        </a>
-      )}
+          <div className="grid_container">
+            {movies.length === 0 ? (
+              <LoadingPlaceholder />
+            ) : (
+              <div className="grid">
+                {movies.map((item) => (
+                  <CinemaCard key={item.id} {...item} />
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

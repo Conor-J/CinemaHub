@@ -8,12 +8,8 @@ const CinemaCard: React.FC<Media> = ({
   name,
   poster_path,
   media_type,
-  //vote_average,
-  //genre_ids,
   release_date,
   first_air_date,
-  //   runtime,
-  //   overview,
 }) => {
   //const genreNames = genreMap(genre_ids);
 
@@ -24,10 +20,6 @@ const CinemaCard: React.FC<Media> = ({
   const cleanName = handle.replace(/\s+/g, "-").toLowerCase();
 
   const mediaIdent = `${id}-${cleanName}`  
-
-  //   const runtimeText = runtime ? `${runtime} min` : "N/A";
-
-  //   const truncatedOverview = overview ? overview.substring(0, 100) + "..." : "";
 
   return (
     <div className="cinema_card">

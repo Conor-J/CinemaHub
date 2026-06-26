@@ -1,9 +1,8 @@
-import { getCinemaDetails, getGenreNames } from "../services/apiRequests";
+import { getCinemaDetails } from "../services/apiRequests";
 import "../css/CinemaDetails.css";
 import "../css/Globe.css";
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { type Media } from "../types";
+import { useQuery } from "@tanstack/react-query";
 import DetailsBanner from "../components/DetailsBanner";
 import LoadingPlaceholder from "../components/LoadingPlaceholder";
 
@@ -13,26 +12,16 @@ const CinemaDetails = () => {
     mediaIdent?: string;
   }>();
 
-  const URL = `${mediaType}/${mediaIdent}`;
+  const { data: details, isLoading, error } = useQuery ({
+    queryKey: ['cinemaDetails', mediaType, mediaIdent],
 
-  const [details, setDetails] = useState<Media | null>(null);
-  const [genreMap, setGenreMap] = useState<Record<number, string>>({});
+    queryFn: () => getCinemaDetails(mediaType!, mediaIdent!),
 
-  useEffect(() => {
-    const fetchDetails = async () => {
-      try {
-        const data = await getCinemaDetails(URL);
-        setDetails(data);
+    enabled: !!mediaType && !!mediaIdent,
+  });
 
-        // const genreNames = await getGenreNames(mediaType as "movie" | "tv");
-        // setGenreMap(genreNames);
-      } catch (error) {
-        console.error("Error fetching trending:", error);
-      }
-    };
-
-    fetchDetails();
-  }, []);
+  if (isLoading) return <div className="loading_wrapper"><p>Loading details...</p></div>
+  if (error || !details) return <div className="error_wrapper"><p>Error retrieving details</p></div>
 
   return (
     <div className="column_wrapper">
