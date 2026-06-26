@@ -1,0 +1,66 @@
+/* Optional: Fade-out effect for cards at edges */
+.cinema_card {
+  flex: 1 1 200-px; /* Grow as needed, min-width 200px */
+  min-width: 200px;
+  max-width: 100%;
+  height: auto;
+  max-height: fit-content;
+  border-radius: 10px;
+  overflow: hidden;
+  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+  background-color: #0f0f1a;
+  transition: transform 0.3s ease;
+}
+
+.cinema_card img {
+  object-fit: cover; /* Ensures image fills container without distortion */
+  /* border-radius: 10px; */
+  width: 100%;
+  height: auto;
+  /* width: auto; */
+  display: block;
+}
+
+/* Card content — ensure title fits and doesn't overflow */
+.cinema_card .card_info {
+  padding: 15px 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  /* border-radius: 10px; */
+  font-size: 0.9rem;
+  color: white;
+  min-height: 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  /* ✅ Add max-width to prevent overflow */
+  max-width: 100%;
+  width: 100%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+
+}
+
+
+/* Title styling — prevent overflow and ensure it fits */
+.cinema_card .card_info h3 {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0;
+  margin-bottom: 0.25rem;
+  padding: 0rem 0rem;
+  white-space: normal;
+  line-height: 1.2;
+  /* ✅ Prevents stretching or overflow */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* ✅ Enforces max-height and text truncation */
+  line-height: 1.2;
+}
+/* .cinema-card .card-info title{
+    word-wrap: break-word;
+} */
+
+/* Optional: Add subtle hover glow */
+.cinema-card:hover {
+  transform: scale(1.03);
+}
