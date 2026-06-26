@@ -4,9 +4,9 @@ import { type Media } from "../types";
 import "../css/DetailsBanner.css";
 import "../css/Globe.css";
 
+
 const DetailsBanner: React.FC<{
-  media: Media | null | undefined;
-  // genreMap: Record<number, string>;
+  media: Media;
 }> = ({ media }) => {
   if (!media) {
     return (
@@ -32,11 +32,7 @@ const DetailsBanner: React.FC<{
   } = media;
 
   const formattedTitle = title || name;
-
-  //  const genreNames = genres
-  //    ?.map((genre) => genreMap[genre.id] || `Genre ${genre.id}`)
   const genreNames = genres?.map((genre) => genre.name);
-
   const backDrop = `https://image.tmdb.org/t/p/w1280${backdrop_path}`;
 
   const formattedGenres =

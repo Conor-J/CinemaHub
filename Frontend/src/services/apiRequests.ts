@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import { type Media, type Genre } from "../types";
 
 export const BASE_URL = "http://localhost:5000/api";
@@ -17,17 +16,15 @@ export const getPopularTVShow = async (): Promise<Media[]> => {
   return data.results;
 };
 
-export const getDayTrending = async (): Promise<Media[]> => {
-  const response = await fetch(
-    `${BASE_URL}/trending/all/day`,
-  );
+export const getDayTrending = async (timeWindow: 'day' | 'week'): Promise<Media[]> => {
+  const response = await fetch(`${BASE_URL}/trending/all/${timeWindow}`);
   if (!response.ok) throw new Error("Failed to fetch trending");
   const data = await response.json();
   return data.results;
 };
 
-export const getCinemaDetails = async (id?: string): Promise<Media> => {
-  const response = await fetch(`${BASE_URL}/${id}`);
+export const getCinemaDetails = async (mediaType?: 'movie' | 'tv', id?: string): Promise<Media> => {
+  const response = await fetch(`${BASE_URL}/${mediaType}/${id}`);
   if(!response.ok) throw new Error('Failed to fetch details');
   const data = await response.json();
   return data;
