@@ -76,9 +76,8 @@ const DetailsBanner: React.FC<{
               </div>
             </div>
             {vote_average > 0 && (
-              <p className="banner-rating">Rating: {vote_average} ⭐</p>
+              <p className="banner-rating">Rating: {vote_average}</p>
             )}
-            {runtime > 0 && <p className="banner-runtime">{runtime} min</p>}
             {overview && <p className="banner-overview">{overview}</p>}
           </div>
         </div>

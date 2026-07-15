@@ -20,11 +20,15 @@ export interface Movie extends MediaBase {
 }
 
 export interface TVShow extends MediaBase {
-  last_air_date: string;
-  season_number: number[];
-  number_of_seasons: number;
+  last_air_date?: string;
+  season_number?: number[];
+  number_of_seasons?: number;
   genre_names?: string[];
   media_type: 'tv';
+}
+
+export interface CinemaCardProp extends MediaBase {
+    media_type: string;
 }
 
 export interface searchDetails {
