@@ -26,12 +26,13 @@ Optional: Fade-out effect at ends */
 }
 
 .column_wrapper {
-    max-width: var(--maxPrimaryPageWidth);
+    max-width: 100%;
     display: flex;
     align-items: flex-start;
     align-content:flex-start;
     justify-content: left;
     padding: 40px 30px;
+    margin: 0 auto;
 }
 
 .column_wrapper .column {
@@ -95,24 +96,24 @@ Optional: Fade-out effect at ends */
 }
 
 .grid_container {
-    max-width: var(--maxPrimaryPageWidth);
-    border: solid white;
+    max-width: 100%;
+    width: fit-content;
 }
 
 .grid {
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(5, 1fr);
     gap: 20px;
 }
 
 .filter_wrapper {
-    justify-content: left;
-    display:flex;
+    display:block;
     flex-direction: column;
     border: solid  1px;
     border-radius: 10px;
-    width: 400px;
+    width: auto;
+    min-width: 150px;
 }
 
 .filter_pannel {
@@ -128,7 +129,8 @@ Optional: Fade-out effect at ends */
 }
 
 .row_wrapper {
-    max-width: var(--maxPrimaryPageWidth);
+    max-width: 100%;
+    width: fit-content;
     display: flex;
     flex-direction: row;
     align-items: flex-start;
@@ -141,4 +143,42 @@ Optional: Fade-out effect at ends */
     width: 100%;
     max-width: fit-content;
     justify-content: left;
+}
+
+/* Small Desktops: Down to 4 items */
+@media (max-width: 1200px) {
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Tablets: Down to 3 items */
+@media (max-width: 900px) {
+  .filter_wrapper {
+    display:none;
+  }
+
+    .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Mobile Phones: Down to 2 items */
+@media (max-width: 600px) {
+    .filter_wrapper {
+    display:none;
+  }
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Very Small Mobile: Down to 1 item */
+@media (max-width: 400px) {
+      .filter_wrapper {
+    display:none;
+  }
+  .grid {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }

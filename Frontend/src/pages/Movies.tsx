@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { data, useParams } from "react-router-dom";
+import { type Media } from "../types";
 import { getPopularMovies } from "../services/apiRequests";
 import LoadingPlaceholder from "../components/LoadingPlaceholder";
 import CinemaCard from "../components/CinemaCard";
-import '../css/Globe.css'
+import "../css/Globe.css";
 
 const Movies = () => {
+
   const {
     data: movies,
     isLoading,
@@ -13,6 +16,11 @@ const Movies = () => {
   } = useQuery({
     queryKey: ["movie", "popular"],
     queryFn: getPopularMovies,
+    select: (data) =>
+      data.map((movie) => ({
+        ...movie,
+        media_type: "movie" as const,
+      })),
   });
 
   if (isLoading)
@@ -28,6 +36,7 @@ const Movies = () => {
       </div>
     );
 
+  // console.log(media_type);
   return (
     <div className="column_wrapper">
       <div className="content_wrapper">
